@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="../kepek/logo.jpg" type="image/x-icon" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="../css/stilus.css" />
+	<title>Táblázat</title>
+</head>
+<body>
+	<div class="jumbotron">
+		Kérdőív
+	</div>
+	<nav>
+		<li><a href="/kerdoivek" class="active">Kérdőívek</a></li>
+		<% if (statusz == 'p') { %>
+			<li><a href="/sablon">Kérdőív sablon</a></li>
+			<li><a href="/ertekel">Értékelések</a></li>
+		<% } %>
+		<li><a href="/kilep">Kilép</a></li>
+	</nav>
+	<div class="container">
+		<a href="/tablazatok/?name=<%= mappa_cim %>"><%= mappa_cim  %></a>
+		<div class="row">
+			<h1 class="text-center"><%= cim %></h1>
+			<ul style="list-style-type: none">
+				<% for( let i = 0; i < kerdesek.length; i++ ) { %>
+				<li>
+					<canvas id="myChart_<%= i %>"></canvas>
+					<br />
+				</li>
+				<% } %>
+			</ul>
+		</div>
+	</div>
+	<script>
+		const tomb_1 = '<%- JSON.stringify(kerdesek) %>';
+		const kerdesek = JSON.parse(tomb_1);
+		const tomb_2 = '<%- JSON.stringify(valaszok) %>';
+		const valaszok = JSON.parse(tomb_2);
+		const tomb_3 = '<%- JSON.stringify(vegsoSzamok) %>';
+		const vegsoSzamok = JSON.parse(tomb_3);
+		// console.log(vegsoSzamok);
+
+		for (let i = 0; i < kerdesek.length; i++) {
+			const ctx = document
+				.getElementById(`myChart_${i}`)
+				.getContext('2d');
+			const myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: valaszok,
+					datasets: [
+						{
+							label: kerdesek[i],
+							data: vegsoSzamok[i],
+							backgroundColor: [
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(255, 206, 86, 0.2)',
+								'rgba(75, 192, 192, 0.2)',
+								'rgba(153, 102, 255, 0.2)',
+								'rgba(255, 159, 64, 0.2)',
+							],
+							borderColor: [
+								'rgba(255, 99, 132, 1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 206, 86, 1)',
+								'rgba(75, 192, 192, 1)',
+								'rgba(153, 102, 255, 1)',
+								'rgba(255, 159, 64, 1)',
+							],
+							borderWidth: 1,
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+						},
+					},
+				},
+			});
+		}
+
+		const letoltesTartalom = '<%- JSON.stringify(letoltesTartalom)%>';
+		const cim = '<%- JSON.stringify(cim)%>';
+		let cim_1 = cim.slice(1, cim.length - 1);
+		const mappa_cim = '<%- JSON.stringify(mappa_cim)%>';
+		let mappa_cim_1 = mappa_cim.slice(1, mappa_cim.length - 1);
+		let letoltesTartalom_1 = letoltesTartalom.slice(
+			1,
+			letoltesTartalom.length - 1
+		);
+		console.log(cim_1);
+		const blob = new Blob([letoltesTartalom_1], {
+			type: 'application/octet-stream',
+		});
+		const href = URL.createObjectURL(blob);
+		console.log(href);
+		const a = Object.assign(document.createElement('a'), {
+			href,
+			style: 'display: none',
+			download: `${mappa_cim_1}_${cim_1}.csv`,
+		});
+		a.click();
+		URL.revokeObjectURL(href);
+		a.remove();
+	</script>
+</body>
+</html>

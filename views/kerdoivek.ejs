@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="kepek/logo.jpg" type="image/x-icon" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="css/stilus.css" />
+	<title>Kérdőívek</title>
+</head>
+<body>
+	<div class="jumbotron">
+		Kérdőív
+	</div>
+	<nav>
+		<li><a href="/kerdoivek" class="active">Kérdőívek</a></li>
+		<% if (statusz == 'p') { %>
+			<li><a href="/sablon">Kérdőív sablon</a></li>
+			<li><a href="/ertekel">Értékelések</a></li>
+		<% } %>
+		<li><a href="/kilep">Kilép</a></li>
+	</nav>
+	<div class="kerdoivek">
+		<ul>
+			<% kerdoivNevek.forEach(elem => { %>
+			<li>
+				<a href="/kerdoiv/?name=<%= elem %>"><%= elem %></a>
+			</li>
+			<% }) %>
+		</ul>
+	</div>
+</body>
+</html>

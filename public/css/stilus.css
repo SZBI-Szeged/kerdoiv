@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+:root {
+    --hatterszinjumbotron: rgb(180, 25, 25);
+    --hatterszinbelep: rgb(220, 226, 243);
+    --hatterszinnav: rgb(104, 21, 21);
+}
+
+html {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* belep.ejs */
+.jumbotron {
+    align-items: center;
+    background-color: var(--hatterszinjumbotron);
+    color: white;
+    display: flex;
+    font-size: 2em;
+    height: 10vh;
+    justify-content: center;
+}
+
+.active {
+    background-color: rgb(33, 45, 219);
+}
+
+.belep {
+    align-items: center;
+    display: flex;
+    height: 90vh;
+    justify-content: center;
+}
+
+.urlap {
+    align-items: center;
+    /* background-color: var(--hatterszinbelep); */
+    border-radius: 4px;
+    display: flex;
+    color: black;
+    font-size: 1.5em;
+    height: 40vh;
+    justify-content: center;
+    width: 50vw;
+}
+
+.urlap input[type='text'],
+.urlap input[type='number'],
+.urlap input[type='password'] {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1em;
+    height: 2em;
+    margin-bottom: 1em;
+}
+
+.urlap button {
+    background-color: rgb(13, 83, 7);
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1em;
+    height: 2em;
+    padding: 10px;
+}
+/* nav */
+
+nav {
+    background-color: var(--hatterszinnav);
+    list-style-type: none;
+    overflow: hidden;
+}
+
+nav li {
+    float: left;
+    width: 150px;
+}
+
+nav li a {
+    background-color: var(--hatterszinnav);
+    color: white;
+    display: inline-block;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+}
+
+nav li a:hover {
+    background-color: royalblue;
+}
+
+/* kerdoivek */
+
+.kerdoivek {
+    padding-left: 50px;
+}
+
+.kerdoivek ul {
+    list-style-type: none;
+}
+
+.kerdoivek ul li {
+    padding-top: 20px;
+}
+
+.kerdoivek ul li a {
+    text-decoration: none;
+}
+
+/* kerdoiv */
+
+.kerdoiv {
+    padding: 20px;
+}
+
+.text-center {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.kerdoiv table {
+    width: 100%;
+}
+
+.kerdoiv td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.kerdoiv button {
+    background-color: rgb(62, 161, 53);
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1em;
+    height: 3em;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+/* folap */
+
+.folap {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    justify-content: center;
+}
+
+/* sablon */
+
+.sablon {
+    align-items: center;
+    background-color: var(--hatterszinbelep);
+    border-radius: 4px;
+    display: flex;
+    color: black;
+    flex-direction: column;
+    font-size: 1.5em;
+    height: 40vh;
+    justify-content: center;
+    width: 50vw;
+}
+
+/* tablazatok */
+
+.belep-tablazatok {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    justify-content: center;
+}
+
+.belep-tablazatok a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.belep-tablazatok button {
+    background-color: slateblue;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 1em;
+}
+
+@media screen and (max-width: 680px) {
+    .urlap {
+        width: 100vw;
+    }
+
+    nav li {
+        float: none;
+        width: 100%;
+    }
+
+    .kerdoiv td {
+        width: 100%;
+    }
+}
