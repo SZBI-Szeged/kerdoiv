@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="shortcut icon" href="kepek/logo.jpg" type="image/x-icon" />
+	<link rel="shortcut icon" href="../../kepek/logo.jpg" type="image/x-icon" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<link rel="stylesheet" href="css/stilus.css" />
+	<link rel="stylesheet" href="../../css/stilus.css" />
 	<title>Sablon Feltöltés</title>
 </head>
 <body>
@@ -24,18 +24,18 @@
 	<div class="belep">
 		<div class="urlap-sablon">
 			<form action="/letrehoz" method="post" autocomplete="off">
-				<input type="hidden" name="kerdes" value="<%= kerdes %>" />
-				<input type="hidden" name="valasz" value="<%= valasz %>" />
+				<input type="hidden" name="kerdes" value="<%= kerdesSzam %>" />
+				<input type="hidden" name="valasz" value="<%= valaszSzam %>" />
 				<label for="cim">A kérdőív címe: </label><br />
-				<input type="text" name="cim" id="cim" /><br />
-					<% for( let i = 0; i < kerdes; i++ ) { %>
+				<input type="text" name="cim" id="cim" value="<%= cim %>" /><br />
+					<% for( let i = 0; i < kerdesSzam; i++ ) { %>
 						<label><%= i + 1 %>. kérdés:</label><br />
-						<input type="text" name="kerdes_<%= i + 1 %>" /><br />
+						<input type="text" name="kerdes_<%= i + 1 %>" value="<%= kerdesek[i] %>" /><br />
 					<% } %>
 				<hr /><br />
-					<% for( let i = 0; i < valasz; i++ ) { %>
+					<% for( let i = 0; i < valaszSzam; i++ ) { %>
 						<label><%= i + 1 %>. válasz:</label><br />
-						<input type="text" name="valasz_<%= i + 1 %>" /><br />
+						<input type="text" name="valasz_<%= i + 1 %>" value="<%= valaszok[i] %>" /><br />
 					<% } %>
 				<button type="submit">Létrehoz</button>
 			</form>

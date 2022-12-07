@@ -22,12 +22,34 @@
 	</nav>
 	<div class="kerdoivek">
 		<ul>
-			<% kerdoivNevek.forEach(elem => { %>
-			<li>
-				<a href="/kerdoiv/?name=<%= elem %>"><%= elem %></a>
-			</li>
-			<% }) %>
+			<% if (statusz == 'p') { %>
+				<% kerdoivNevek.forEach(elem => { %>
+					<li>
+						<a href="/kerdoiv/?name=<%= elem %>"><%= elem %></a>
+							<a href="/kerdoiv/modosit/?name=<%= elem %>"><span class="material-symbols-outlined">format_ink_highlighter</span></a>
+							<button onclick="torol('<%- elem %>')"><span class="material-symbols-outlined">delete</span></button> 
+					</li>
+				<% }) %>
+			<% } else { %>
+				<% if (osztaly == '9a') { %>
+					<li><a href="/kerdoiv/?name=<%= kerdoivNevek[0]%> Bodrogi Péter Róbert"><%= kerdoivNevek[0]%> Bodrogi Péter Róbert</a></li>
+					<li><a href="/kerdoiv/?name=<%= kerdoivNevek[0]%> Csontos Péter"><%= kerdoivNevek[0]%> Csontos Péter</a></li>
+				<% } else if (osztaly == '9b') { %>
+					<li><a href="/kerdoiv/?name=<%= kerdoivNevek[0]%> Csontos Péter"><%= kerdoivNevek[0]%> Csontos Péter</a></li>
+				<% } %>   
+				<% for (let i = 1; i < kerdoivNevek.length; i++) { %>
+					<li><a href="/kerdoiv/?name=<%= kerdoivNevek[i]%>"><%= kerdoivNevek[i] %></a></li>
+				<% } %>
+			<% } %> 
 		</ul>
 	</div>
+	<script>
+		async function torol(cim) {
+			console.log('törlés');
+			await fetch(`/kerdoiv/?name=${cim}`, {
+				method: 'delete',
+			});
+		}
+	</script>
 </body>
 </html>

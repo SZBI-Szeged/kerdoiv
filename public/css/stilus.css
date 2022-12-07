@@ -47,9 +47,32 @@ html {
     font-size: 1.5em;
     height: 40vh;
     justify-content: center;
-    width: 50vw;
+    width: 50%;
 }
 
+.urlap-sablon {
+    align-items: center;
+    /* background-color: var(--hatterszinbelep); */
+    border-radius: 4px;
+    display: flex;
+    color: black;
+    font-size: 1.5em;
+    height: 40vh;
+    justify-content: center;
+    width: 90%;
+}
+
+.urlap form {
+    height: 100%;
+    width: 50%;
+}
+
+.urlap-sablon form {
+    height: 100%;
+    width: 100%;
+}
+
+.urlap input[type='hidden'],
 .urlap input[type='text'],
 .urlap input[type='number'],
 .urlap input[type='password'] {
@@ -57,6 +80,18 @@ html {
     font-size: 1em;
     height: 2em;
     margin-bottom: 1em;
+    width: 100%;
+}
+
+.urlap-sablon input[type='hidden'],
+.urlap-sablon input[type='text'],
+.urlap-sablon input[type='number'],
+.urlap-sablon input[type='password'] {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1em;
+    height: 2em;
+    margin-bottom: 1em;
+    width: 100%;
 }
 
 .urlap button {
