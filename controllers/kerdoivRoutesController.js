@@ -3,6 +3,7 @@ const path = require('path');
 
 exports.getKerdoiv = (req, res) => {
     const cim = req.query.name;
+    console.log(cim);
 
     const ut = path.join(__dirname, '..', 'kerdoivek', `${cim}.txt`);
 
