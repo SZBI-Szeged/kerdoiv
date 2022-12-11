@@ -41,7 +41,11 @@ exports.postBelep = async (req, res) => {
                 const tomb = nev.split('_');
 
                 if (statusz == 't') {
-                    req.app.locals.osztaly = tomb[0].slice(0, 2);
+                    if (tomb[0].slice(0, 1) == 9) {
+                        req.app.locals.osztaly = tomb[0].slice(0, 2);
+                    } else {
+                        req.app.locals.osztaly = tomb[0].slice(0, 3);
+                    }
                 }
 
                 console.log(req.app.locals);
