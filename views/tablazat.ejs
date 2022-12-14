@@ -16,10 +16,10 @@
 		Kérdőív
 	</div>
 	<nav>
-		<li><a href="/kerdoivek" class="active">Kérdőívek</a></li>
+		<li><a href="/kerdoivek">Kérdőívek</a></li>
 		<% if (statusz == 'p') { %>
 			<li><a href="/sablon">Kérdőív sablon</a></li>
-			<li><a href="/ertekel">Értékelések</a></li>
+			<li><a href="/ertekel" class="active">Értékelések</a></li>
 		<% } %>
 		<li><a href="/kilep">Kilép</a></li>
 	</nav>
@@ -39,12 +39,12 @@
 	</div>
 	<script>
 		const tomb_1 = '<%- JSON.stringify(kerdesek) %>';
+		console.log(tomb_1);
 		const kerdesek = JSON.parse(tomb_1);
 		const tomb_2 = '<%- JSON.stringify(valaszok) %>';
 		const valaszok = JSON.parse(tomb_2);
 		const tomb_3 = '<%- JSON.stringify(vegsoSzamok) %>';
 		const vegsoSzamok = JSON.parse(tomb_3);
-		// console.log(vegsoSzamok);
 
 		for (let i = 0; i < kerdesek.length; i++) {
 			const ctx = document

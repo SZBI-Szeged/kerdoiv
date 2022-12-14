@@ -3,7 +3,8 @@ const path = require('path');
 
 exports.getKerdoiv = (req, res) => {
     const cim = req.query.name;
-    console.log(cim);
+    const okt = req.query.okt;
+    console.log(okt);
 
     const ut = path.join(__dirname, '..', 'kerdoivek', `${cim}.txt`);
 
@@ -26,10 +27,18 @@ exports.getKerdoiv = (req, res) => {
     }
 
     req.app.locals.cim = cim;
+    req.app.locals.okt = okt;
     req.app.locals.kerdesek = kerdesek;
     req.app.locals.valaszok = valaszok;
 
-    res.render('kerdoiv', { cim, kerdesSzam, kerdesek, valaszSzam, valaszok });
+    res.render('kerdoiv', {
+        cim,
+        okt,
+        kerdesSzam,
+        kerdesek,
+        valaszSzam,
+        valaszok,
+    });
 };
 
 exports.deleteKerdoiv = (req, res) => {

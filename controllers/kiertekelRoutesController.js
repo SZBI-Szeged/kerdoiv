@@ -5,6 +5,7 @@ exports.postKiertekel = (req, res) => {
     const valaszErtekek = req.body.valaszok;
     const osztaly = req.app.locals.osztaly;
     const cim = req.app.locals.cim;
+    const okt = req.app.locals.okt;
     const kerdesek = req.app.locals.kerdesek;
     const valaszok = req.app.locals.valaszok;
 
@@ -22,23 +23,47 @@ exports.postKiertekel = (req, res) => {
         }
     }
 
-    const utKonyvtar = path.join(__dirname, '..', 'eredmenyek', `${cim}`);
+    let utKonyvtar = '';
+    let utOsztaly = '';
+    let utIskola = '';
 
-    const utOsztaly = path.join(
-        __dirname,
-        '..',
-        'eredmenyek',
-        `${cim}`,
-        `${osztaly}.csv`
-    );
+    if (okt) {
+        utKonyvtar = path.join(__dirname, '..', 'eredmenyek', `${cim} ${okt}`);
 
-    const utIskola = path.join(
-        __dirname,
-        '..',
-        'eredmenyek',
-        `${cim}`,
-        'iskola.csv'
-    );
+        utOsztaly = path.join(
+            __dirname,
+            '..',
+            'eredmenyek',
+            `${cim} ${okt}`,
+            `${osztaly}.csv`
+        );
+
+        utIskola = path.join(
+            __dirname,
+            '..',
+            'eredmenyek',
+            `${cim} ${okt}`,
+            'iskola.csv'
+        );
+    } else {
+        utKonyvtar = path.join(__dirname, '..', 'eredmenyek', `${cim}`);
+
+        utOsztaly = path.join(
+            __dirname,
+            '..',
+            'eredmenyek',
+            `${cim}`,
+            `${osztaly}.csv`
+        );
+
+        utIskola = path.join(
+            __dirname,
+            '..',
+            'eredmenyek',
+            `${cim}`,
+            'iskola.csv'
+        );
+    }
 
     if (!fs.existsSync(utKonyvtar)) {
         fs.mkdirSync(utKonyvtar);

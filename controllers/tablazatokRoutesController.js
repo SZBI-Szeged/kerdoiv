@@ -2,12 +2,28 @@ const fs = require('fs');
 const path = require('path');
 
 exports.getTablazatok = (req, res) => {
-    const cim = req.query.name;
+    let cim = req.query.name;
+    let okt = '';
+    console.log(cim);
+
+    if (cim.split(' ')[0] == 'Oktató') {
+        for (let i = 1; i < cim.split(' ').length; i++) {
+            if (i < cim.split(' ').length - 1) {
+                okt += cim.split(' ')[i] + ' ';
+            } else {
+                okt += cim.split(' ')[i];
+            }
+        }
+        cim = 'Oktató';
+        req.app.locals.okt = okt;
+    }
+
+    console.log(okt);
 
     const ut = path.join(__dirname, '..', 'kerdoivek', `${cim}.txt`);
 
-    const nyersAdatok = fs.readFileSync(ut, 'utf-8');
-    let kerdoivAdatok = nyersAdatok.trim().split('\n');
+    const nyersiAdatok = fs.readFileSync(ut, 'utf-8');
+    let kerdoivAdatok = nyersiAdatok.trim().split('\n');
     const hossz = kerdoivAdatok.length;
 
     const kerdesSzam = +kerdoivAdatok[hossz - 1].split(';')[0];
@@ -19,16 +35,22 @@ exports.getTablazatok = (req, res) => {
     for (let i = 0; i < hossz - 1; i++) {
         let keyErtek = kerdoivAdatok[i];
         if (i < kerdesSzam) {
-            kerdesek.push(keyErtek);
+            kerdesek.push(keyErtek.trim());
         } else {
-            valaszok.push(keyErtek);
+            valaszok.push(keyErtek.trim());
         }
     }
 
-    const utOsztaly = path.join(__dirname, '..', 'eredmenyek', `${cim}`);
+    let utOsztaly = '';
+
+    if (okt) {
+        utOsztaly = path.join(__dirname, '..', 'eredmenyek', `${cim} ${okt}`);
+    } else {
+        utOsztaly = path.join(__dirname, '..', 'eredmenyek', `${cim}`);
+    }
 
     const fileok = fs.readdirSync(utOsztaly, 'utf-8');
-    console.log(fileok);
+    // console.log(fileok);
 
     const ujFileok = fileok.map((elem) => path.parse(elem).name);
 
@@ -49,11 +71,11 @@ exports.getTablazatok = (req, res) => {
 
         for (let i = 0; i < kerdoivAdatok.length; i++) {
             const kerdoivAdatokTomb = kerdoivAdatok[i].split(';');
-            console.log(kerdoivAdatokTomb);
+            // console.log(kerdoivAdatokTomb);
             for (let k = 0; k < valaszSzam; k++) {
-                console.log(valaszok[k]);
+                // console.log(valaszok[k]);
                 if (kerdoivAdatokTomb[2] == valaszok[k]) {
-                    console.log('van');
+                    // console.log('van');
                     tomb[k]++;
                 }
             }

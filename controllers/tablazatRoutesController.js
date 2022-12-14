@@ -3,20 +3,30 @@ const path = require('path');
 
 exports.getTablazat = (req, res) => {
     const mappa = req.app.locals.cim;
+    const okt = req.app.locals.okt;
     const cim = req.query.name;
-    const mappa_cim = mappa;
+    // console.log(mappa + ' és ' + cim + ' és ' + okt);
 
-    const ut = path.join(
-        __dirname,
-        '..',
-        'eredmenyek',
-        `${mappa}`,
-        `${cim}.csv`
-    );
+    let mappa_cim = mappa;
+    let ut = null;
+
+    if (mappa !== 'Oktató') {
+        ut = path.join(__dirname, '..', 'eredmenyek', `${mappa}`, `${cim}.csv`);
+    } else if (okt) {
+        ut = path.join(
+            __dirname,
+            '..',
+            'eredmenyek',
+            `${mappa} ${okt}`,
+            `${cim}.csv`
+        );
+        mappa_cim = mappa + ' ' + okt;
+    }
+    // console.log(ut);
 
     const nyersAdatok = fs.readFileSync(ut, 'utf-8');
     let kerdoivAdatok = nyersAdatok.trim().split('\n');
-
+    console.log(kerdoivAdatok);
     const kerdesek = req.app.locals.kerdesek;
     const valaszok = req.app.locals.valaszok;
 
@@ -32,8 +42,8 @@ exports.getTablazat = (req, res) => {
         for (let k = 0; k < valaszok.length; k++) {
             for (let n = 0; n < kerdoivAdatok.length; n++) {
                 const kerdoivAdatokTomb = kerdoivAdatok[n].split(';');
-                let kerdes = kerdoivAdatokTomb[1];
-                let valasz = kerdoivAdatokTomb[2];
+                let kerdes = kerdoivAdatokTomb[1].trim();
+                let valasz = kerdoivAdatokTomb[2].trim();
                 if (valaszok[k] == valasz && kerdesek[i] == kerdes) {
                     valaszTomb[k]++;
                 }
@@ -93,7 +103,7 @@ exports.getTablazat = (req, res) => {
     } else {
         fs.writeFileSync(letoltesUt, letoltesTartalom);
     }
-
+    console.log(vegsoSzamok);
     res.render('tablazat', {
         cim,
         mappa_cim,
